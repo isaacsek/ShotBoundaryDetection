@@ -48,21 +48,21 @@ public class Application {
 	private final static int TOR = 2;
 	
 	public static void main(String[] args) throws IOException{
-		//int[][] initialHistogram = getHistogramFromFrames(FRAMES_FILE_PATH);
-		int[][] histogram = deserializeJson("static/data/histogram.json");
-		int[] differences = getDifferenceArray(histogram);
-		List<Integer> results = detectShots(differences, TOR);
-//		
-		int c = 1;
-		for(int x : results) {
-			System.out.println("Shot " + c + ": " + (x + 1000));
-			c++;
-		}
+//		//int[][] initialHistogram = getHistogramFromFrames(FRAMES_FILE_PATH);
+//		int[][] histogram = deserializeJson("static/data/histogram.json");
+//		int[] differences = getDifferenceArray(histogram);
+//		List<Integer> results = detectShots(differences, TOR);
+////		
+//		int c = 1;
+//		for(int x : results) {
+//			System.out.println("Shot " + c + ": " + (x + 1000));
+//			c++;
+//		}
 //		for(int i = 0; i < results.size(); i++) {
 //			splitVideoIntoShots(results, i);
 //		}
 		//convertToMp4(results);
-		//SpringApplication.run(Application.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 	
 	public static void splitVideoIntoShots(List<Integer> shots, int index) throws IOException {
