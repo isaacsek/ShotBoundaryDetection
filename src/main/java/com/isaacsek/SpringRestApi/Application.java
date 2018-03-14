@@ -52,15 +52,15 @@ public class Application {
 		int[][] histogram = deserializeJson("static/data/histogram.json");
 		int[] differences = getDifferenceArray(histogram);
 		List<Integer> results = detectShots(differences, TOR);
-		
+//		
 		int c = 1;
 		for(int x : results) {
 			System.out.println("Shot " + c + ": " + (x + 1000));
 			c++;
 		}
-		for(int i = 0; i < results.size(); i++) {
-			splitVideoIntoShots(results, i);
-		}
+//		for(int i = 0; i < results.size(); i++) {
+//			splitVideoIntoShots(results, i);
+//		}
 		//convertToMp4(results);
 		//SpringApplication.run(Application.class, args);
 	}
@@ -136,7 +136,7 @@ public class Application {
 				+ transition + ", tor = " + tor + ", length = " + nums.length);
 		
 		LinkedList<Integer> results = new LinkedList<Integer>();
-		results.add(0);
+		//results.add(0);
 		int i = 0;
 		while(i < nums.length - tor) {
 			if(nums[i] < transition) {
@@ -149,7 +149,7 @@ public class Application {
 					i++;
 					continue;
 				}
-				System.out.println("cut found at frame: " + (i + 1));
+				System.out.println("Cut: Start = " + i + ", End = " + (i + 1));
 				results.add(i + 1); // Cs + 1 || Ce
 				i++;
 				continue;
@@ -161,7 +161,7 @@ public class Application {
 				while(j < nums.length) {
 					if(nums[j] >= cut) {
 						if(sum >= cut) {
-							System.out.println("gradual cut found at frame: " + (i + 1) + " to " + (j));
+							System.out.println("Gradual Transition: Start = " + (i + 1) + ", End = " + (j + 1));//System.out.println("gradual cut found at frame: " + (i + 1) + " to " + (j));
 							results.add(i + 1); // Fs + 1
 							i = j;
 							break;
@@ -170,9 +170,9 @@ public class Application {
 					}
 					else if(torCount == tor) {
 						sum -= nums[j - 1];
-						System.out.println("count: " + torCount);
+						//System.out.println("count: " + torCount);
 						if(sum >= cut) {
-							System.out.println("gradual found at frame: " + (i + 1) + " to " + (j - tor));
+							System.out.println("Gradual Transition: Start = " + (i + 1) + ", End = " + (j + tor));//System.out.println("gradual found at frame: " + (i + 1) + " to " + (j - tor));
 							results.add(i + 1); // Fs + 1
 							i = j - tor;
 							break;
