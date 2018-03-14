@@ -62,7 +62,7 @@ public class Application {
 //			splitVideoIntoShots(results, i);
 //		}
 //		convertToMp4(results);
-		//SpringApplication.run(Application.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 	
 	public static void splitVideoIntoShots(List<Integer> shots, int index) throws IOException {
