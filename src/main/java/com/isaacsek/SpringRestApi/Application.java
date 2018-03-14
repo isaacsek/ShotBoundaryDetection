@@ -49,20 +49,20 @@ public class Application {
 	
 	public static void main(String[] args) throws IOException{
 		//int[][] initialHistogram = getHistogramFromFrames(FRAMES_FILE_PATH);
-//		int[][] histogram = deserializeJson("static/data/histogram.json");
-//		int[] differences = getDifferenceArray(histogram);
-//		List<Integer> results = detectShots(differences, TOR);
-//		
-//		int c = 1;
-//		for(int x : results) {
-//			System.out.println("Shot " + c + ": " + (x + 1000));
-//			c++;
-//		}
-//		for(int i = 0; i < results.size(); i++) {
-//			splitVideoIntoShots(results, i);
-//		}
-//		convertToMp4(results);
-		SpringApplication.run(Application.class, args);
+		int[][] histogram = deserializeJson("static/data/histogram.json");
+		int[] differences = getDifferenceArray(histogram);
+		List<Integer> results = detectShots(differences, TOR);
+		
+		int c = 1;
+		for(int x : results) {
+			System.out.println("Shot " + c + ": " + (x + 1000));
+			c++;
+		}
+		for(int i = 0; i < results.size(); i++) {
+			splitVideoIntoShots(results, i);
+		}
+		//convertToMp4(results);
+		//SpringApplication.run(Application.class, args);
 	}
 	
 	public static void splitVideoIntoShots(List<Integer> shots, int index) throws IOException {
@@ -77,6 +77,7 @@ public class Application {
         recorder.setVideoOption("preset", "ultrafast");
         recorder.setVideoOption("crf", "28");
         recorder.setVideoBitrate(2000000);
+        //test
         recorder.setFrameRate(grabber.getFrameRate()); 
         recorder.start();
         
@@ -144,6 +145,10 @@ public class Application {
 			}
 			// difference >= Tb
 			if(nums[i] >= cut) {
+				if(i > 0 && nums[i - 1] > cut) {
+					i++;
+					continue;
+				}
 				System.out.println("cut found at frame: " + (i + 1));
 				results.add(i + 1); // Cs + 1 || Ce
 				i++;
